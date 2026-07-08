@@ -57,5 +57,18 @@ if __name__ == "__main__":
 python app.py --> Run the Application, used only for testing, not for production environment.
 # NOTE: Open an other terminal of same server. After above command, not press "ctrl+C". And check ""curl http://localhost:5000/"" to check the output.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
+Install Gunicorn --> Production Grade Server
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
+pip install gunicorn          --> installs gunicorn.
+pip list                      --> Verify the installation.
+pip freeze > requirements.txt --> updating the requirements.txt, as newdependency is added.
+
+gunicorn --bind 0.0.0.0:5000 app:app --> Start the Application with Gunicorn
+        "gunicorn"            --> Starts the Gunicorn server.
+        "--bind 0.0.0.0:5000" --> Listens on all network interfaces on port 5000.
+        "app:app"             --> because we have object called "app" in file of "app.py"
+gunicorn --workers 3 app:app          --> If three users send requests at the same time. This increases concurrency.
+
+curl http://localhost:5000/ --> to check the output.
+http://13.234.xxx.xxx:5000/ --> Also accessable through public ip via browser. 
 
