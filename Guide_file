@@ -1,0 +1,16 @@
+# Instance type: m7i-flex.large, 20gb EBS, {ubuntu 24.04 LTS}
+-------------------------------------------------------------------------------------------------------
+set -e
+
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo -i 
+sudo apt install python3 python3-pip python3.12-venv -y    // Installing Dependencies: python, pip, venv
+python3 --version
+---------------------------------------------------------------------------------------------------------
+mkdir employee-api
+cd employee-api
+python3 -m venv my-venv                 // creates an isolated environment called my-venv. 
+
+# NOTE : Python projects usually keep their own isolated environment so packages don't interfere with other projects.
