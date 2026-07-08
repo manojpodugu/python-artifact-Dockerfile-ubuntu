@@ -1,4 +1,4 @@
-# Instance type: m7i-flex.large, 20gb EBS, {ubuntu 24.04 LTS}
+# Instance type: m7i-flex.large, 20gb EBS, {ubuntu 24.04 LTS} .THIS IS PYTHON FLASK PROJECT.
 -------------------------------------------------------------------------------------------------------
 set -e
 
@@ -11,6 +11,11 @@ python3 --version
 ---------------------------------------------------------------------------------------------------------
 mkdir employee-api
 cd employee-api
-python3 -m venv my-venv                 // creates an isolated environment called my-venv. 
+python3 -m venv my-venv                 // creates an isolated environment called my-venv (in the form of folder). 
 
 # NOTE : Python projects usually keep their own isolated environment so packages don't interfere with other projects.
+
+source my-venv/bin/activate            // Activate the Virtual Environment called my-venv.
+
+# NOTE:  THEN, Your prompt changes to:   (my-venv) root@ip-172-31-39-228:~/employee-api#    from    root@ip-172-31-39-228:~/employee-api# 
+ 
