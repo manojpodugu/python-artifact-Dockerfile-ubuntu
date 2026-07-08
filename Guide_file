@@ -70,5 +70,37 @@ gunicorn --bind 0.0.0.0:5000 app:app --> Start the Application with Gunicorn
 gunicorn --workers 3 app:app          --> If three users send requests at the same time. This increases concurrency.
 
 curl http://localhost:5000/ --> to check the output.
-http://13.234.xxx.xxx:5000/ --> Also accessable through public ip via browser. 
+http://13.234.xxx.xxx:5000/ --> Also accessable through public ip via browser.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+# The problem is that Gunicorn is directly exposed to the Internet, which isn't considered a best practice.
+# NGINX comes into play here.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+sudo apt install nginx -y 
+nginx -v
+sudo systemctl start nginx
+sudo systemctl enable nginx
+sudo systemctl status nginx
+
+sudo vim /etc/nginx/sites-available/default --> 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sudo nginx -t --> Test the Configuration
+sudo systemctl restart nginx -->
+gunicorn --workers 3 --bind 127.0.0.1:5000 app:app --> Start Gunicorn
+
 
