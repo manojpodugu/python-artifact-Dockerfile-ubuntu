@@ -75,13 +75,13 @@ http://13.234.xxx.xxx:5000/ --> Also accessable through public ip via browser.
 # The problem is that Gunicorn is directly exposed to the Internet, which isn't considered a best practice.
 # NGINX comes into play here.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-sudo apt install nginx -y 
-nginx -v
+sudo apt install nginx -y --> nginx installation
+nginx -v -->verify installation.
 sudo systemctl start nginx
 sudo systemctl enable nginx
 sudo systemctl status nginx
 
-sudo vim /etc/nginx/sites-available/default --> 
+sudo vim /etc/nginx/sites-available/default --> Configure Nginx as a Reverse Proxy by replacing the existing content of file below content.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 server {
@@ -100,7 +100,7 @@ server {
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 sudo nginx -t --> Test the Configuration
-sudo systemctl restart nginx -->
-gunicorn --workers 3 --bind 127.0.0.1:5000 app:app --> Start Gunicorn
-
+sudo systemctl restart nginx --> restart nginx
+gunicorn --workers 3 --bind 127.0.0.1:5000 app:app --> Start Gunicorn.
+"http://13.234.xxx.xxx" --> now check this via browser.
 
