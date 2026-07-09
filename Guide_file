@@ -303,3 +303,30 @@ employee-api/
 ├── my-venv/
 ├── templates/
 └── static/
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+STEPS:
+=====
+1) apt install docker.io -y --> installs docker. 
+2) create a "Dockerfile" in the same directory of "employee-api/" with below content.
+-----------------------------------------------------------------------------------------------------------
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:5000", "app:app"]
+-----------------------------------------------------------------------------------------------------------
+3) "docker build -t employee-api:v1 ." --> builds the image called "employee-api:v1".
+4) docker images --> check images
+5) docker run -d --name employee-api -p 5111:5000 employee-api:v1 --> Runs the Container with image "employee-api:v1".
+6) docker ps --> Verify the container creation.
+7) Type "http://<EC2-PUBLIC-IP>:5111" --> in browser to access.
+
+
