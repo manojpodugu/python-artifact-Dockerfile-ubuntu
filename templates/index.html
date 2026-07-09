@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚀 Employee Management Portal</h1>
+
+    <p class="welcome">
+        Welcome to our Flask Application
+    </p>
+
+    <div class="card">
+        <h2>Application Status</h2>
+
+        <p>
+            ✅ Application is running successfully
+        </p>
+
+        <p>
+            🖥 Hostname:
+            <strong>{{ hostname }}</strong>
+        </p>
+
+        <p>
+            🕒 Server Time:
+            <strong>{{ current_time }}</strong>
+        </p>
+    </div>
+
+    <div class="card">
+
+        <h2>Technology Stack</h2>
+
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Gunicorn</li>
+            <li>Nginx</li>
+            <li>Ubuntu</li>
+        </ul>
+
+    </div>
+
+</div>
+
+</body>
+</html>
