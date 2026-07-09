@@ -103,4 +103,107 @@ sudo nginx -t --> Test the Configuration
 sudo systemctl restart nginx --> restart nginx
 gunicorn --workers 3 --bind 127.0.0.1:5000 app:app --> Start Gunicorn.
 "http://13.234.xxx.xxx" --> now check this via browser.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+STAGE 2: NOW WE WILL IMPLEMENT A SMALL HTML, CSS IN PYTHON CODE WITH SAME ENVIRONMENT.
 
+STRUCTURE:
+=========
+employee-api/
+│
+├── app.py
+├── requirements.txt
+├── templates/
+│   └── index.html
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── images/
+├── my-venv/
+└── ...
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+STEPS:
+======
+1) Replace app.py with below content.
+-----------------------------------------------------------------
+from flask import Flask, render_template
+from datetime import datetime
+import socket
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template(
+        "index.html",
+        hostname=socket.gethostname(),
+        current_time=datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    )
+
+@app.route("/health")
+def health():
+    return {
+        "status": "UP"
+    }
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+-----------------------------------------------------------------
+2) mkdir templates && mkdir -p static/css
+3) Create "templates/index.html" with below content.
+-----------------------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚀 Employee Management Portal</h1>
+
+    <p class="welcome">
+        Welcome to our Flask Application
+    </p>
+
+    <div class="card">
+        <h2>Application Status</h2>
+
+        <p>
+            ✅ Application is running successfully
+        </p>
+
+        <p>
+            🖥 Hostname:
+            <strong>{{ hostname }}</strong>
+        </p>
+
+        <p>
+            🕒 Server Time:
+            <strong>{{ current_time }}</strong>
+        </p>
+    </div>
+
+    <div class="card">
+
+        <h2>Technology Stack</h2>
+
+        <ul>
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Gunicorn</li>
+            <li>Nginx</li>
+            <li>Ubuntu</li>
+        </ul>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+-----------------------------------------------------------------
